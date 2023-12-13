@@ -37,27 +37,6 @@ arquivos_questoes = {
 }
 
 
-def localiza_gabaritos(img: str):
-    procurar = "sim"
-
-    while procurar == "sim":
-        try:
-            pega_img = pyautogui.locateCenterOnScreen(
-                "img/word/clicar_em_pesquisa.png", confidence=0.7
-            )
-            x, y = pega_img  # Desempacota as coordenadas
-            pyautogui.click(x, y)
-            print(f"Achou a imagem {img}!!!")
-            pyautogui.write(img)
-            time.sleep(0.5)
-            pyautogui.press("enter")
-            procurar = "Digitou"
-
-        except:
-            time.sleep(1)
-            print(f"Procurando {img}...")
-
-
 # Caminho para a imagem que você deseja verificar
 caminho_imagem = "img/word_clicar_ok_aviso.png"
 
