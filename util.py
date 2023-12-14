@@ -20,6 +20,24 @@ def localiza_img_com_clique(img: str):
             print(f"Procurando {img}...")
 
 
+def localiza_img_com_clique_com_mais_precisao(img: str):
+    procurar = "sim"
+    caminho_img = f"img/{img}.png"
+
+    while procurar == "sim":
+        try:
+            pega_img = pyautogui.locateCenterOnScreen(caminho_img, confidence=0.9)
+            x, y = pega_img  # Desempacota as coordenadas
+            time.sleep(2)
+            pyautogui.click(x, y)
+            procurar = "Achou"
+            print(f"Achou a imagem {img}!!!")
+
+        except:
+            time.sleep(1)
+            print(f"Procurando {img}...")
+
+
 def localiza_img_com_clique_duplo(img: str):
     procurar = "sim"
     caminho_img = f"img/{img}.png"
@@ -68,7 +86,7 @@ def clicar_se_imagem_aparecer(imagem1, imagem2):
     while time.time() - tempo_inicial < tempo_limite:
         print(tempo_inicial)
         try:
-            img1 = pyautogui.locateCenterOnScreen(caminho_img1, confidence=0.8)
+            img1 = pyautogui.locateCenterOnScreen(caminho_img1, confidence=0.9)
             if img1:
                 x, y = img1
                 pyautogui.click(x, y)
@@ -81,7 +99,7 @@ def clicar_se_imagem_aparecer(imagem1, imagem2):
             time.sleep(1)
 
         try:
-            img2 = pyautogui.locateCenterOnScreen(caminho_img2, confidence=0.8)
+            img2 = pyautogui.locateCenterOnScreen(caminho_img2, confidence=0.9)
             if img2:
                 x, y = img2
                 pyautogui.click(x, y)
