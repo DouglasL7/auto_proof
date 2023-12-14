@@ -56,3 +56,39 @@ def localiza_gabaritos(img: str):
         except:
             time.sleep(1)
             print(f"Procurando {img}...")
+
+
+def clicar_se_imagem_aparecer(imagem1, imagem2):
+    caminho_img1 = f"img/{imagem1}.png"
+    caminho_img2 = f"img/{imagem2}.png"
+
+    time.sleep(2)
+
+    try:
+        while True:
+            # Localizar a posição da imagem 1 na tela
+            imagem1_pos = pyautogui.locateOnScreen(caminho_img1)
+
+            # Localizar a posição da imagem 2 na tela
+            imagem2_pos = pyautogui.locateOnScreen(caminho_img2)
+
+            # Verificar se a imagem 1 foi encontrada
+            if imagem1_pos is not None:
+                print("Imagem 1 encontrada! Clicando...")
+                pyautogui.click(imagem1_pos)
+                procurar = "Achou"
+                break
+
+            # Verificar se a imagem 2 foi encontrada
+            elif imagem2_pos is not None:
+                print("Imagem 2 encontrada! Clicando...")
+                pyautogui.click(imagem2_pos)
+                procurar = "Achou"
+                break
+
+            # Aguardar um curto período de tempo antes de verificar novamente
+            time.sleep(1)
+
+    except:
+        time.sleep(1)
+        print(f"Procurando {imagem1 or imagem2}...")
