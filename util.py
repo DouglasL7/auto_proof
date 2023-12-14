@@ -68,7 +68,7 @@ def clicar_se_imagem_aparecer(imagem1, imagem2):
     while time.time() - tempo_inicial < tempo_limite:
         print(tempo_inicial)
         try:
-            img1 = pyautogui.locateCenterOnScreen(caminho_img1, confidence=0.7)
+            img1 = pyautogui.locateCenterOnScreen(caminho_img1, confidence=0.8)
             if img1:
                 x, y = img1
                 pyautogui.click(x, y)
@@ -81,7 +81,7 @@ def clicar_se_imagem_aparecer(imagem1, imagem2):
             time.sleep(1)
 
         try:
-            img2 = pyautogui.locateCenterOnScreen(caminho_img2, confidence=0.7)
+            img2 = pyautogui.locateCenterOnScreen(caminho_img2, confidence=0.8)
             if img2:
                 x, y = img2
                 pyautogui.click(x, y)
