@@ -33,7 +33,10 @@ for turno in turnos:
 
     # Itere sobre as pastas
     for pasta in pastas:
-        print(pasta)
+        app = Application().start(
+            "C:\Program Files (x86)\Gravic\Remark Office OMR\RooU.exe"
+        )
+
         n_questoes_da_pasta = int(pasta[0:2])
 
         print(f"Secionando a pasta: {pasta}")
@@ -78,7 +81,11 @@ for turno in turnos:
         time.sleep(0.5)
         localiza_img_com_clique_duplo("img_remark/clicar_na_pasta_de_provas")
 
+        time.sleep(0.5)
+
         localiza_img_com_clique_duplo("img_remark/clicar_digitalizadas")
+
+        time.sleep(0.5)
 
         nome_da_pasta_antiga.append(pasta)
 
@@ -192,7 +199,23 @@ for turno in turnos:
 
         localiza_img_com_clique("img_remark/nao_salva_modelo")
 
-        arquivo_notas = rf"C:/Users/douglas.lopes/Documents/Provas_para_lancamentos/Corrigidas/{turno}/{arquivo_notas_txt}"
+        localiza_img_com_clique("img_remark/fechar_remark")
 
-        # Use o comando start com explorer.exe no Windows
+        arquivo_notas = rf"C:/Users/douglas.lopes/Documents/Provas_para_lancamentos/Corrigidas/{turno}/{arquivo_notas_txt}"
         subprocess.Popen(["start", "notepad.exe", arquivo_notas], shell=True)
+
+        time.sleep(2)
+
+        pyautogui.hotkey("ctrl", "h")
+
+        time.sleep(0.5)
+
+        localiza_img_com_clique("notepad/substituir_tudo")
+
+        time.sleep(0.5)
+
+        pyautogui.hotkey("ctrl", "s")
+
+        time.sleep(0.5)
+
+        pyautogui.hotkey("ctrl", "w")
