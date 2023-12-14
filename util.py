@@ -62,33 +62,35 @@ def clicar_se_imagem_aparecer(imagem1, imagem2):
     caminho_img1 = f"img/{imagem1}.png"
     caminho_img2 = f"img/{imagem2}.png"
 
-    time.sleep(2)
+    tempo_inicial = time.time()
+    tempo_limite = 5
 
-    try:
-        while True:
-            # Localizar a posição da imagem 1 na tela
-            imagem1_pos = pyautogui.locateOnScreen(caminho_img1)
+    while time.time() - tempo_inicial < tempo_limite:
+        print(tempo_inicial)
+        try:
+            img1 = pyautogui.locateCenterOnScreen(caminho_img1, confidence=0.7)
+            if img1:
+                x, y = img1
+                pyautogui.click(x, y)
+                return
 
-            # Localizar a posição da imagem 2 na tela
-            imagem2_pos = pyautogui.locateOnScreen(caminho_img2)
+            time.sleep(0.5)
 
-            # Verificar se a imagem 1 foi encontrada
-            if imagem1_pos is not None:
-                print("Imagem 1 encontrada! Clicando...")
-                pyautogui.click(imagem1_pos)
-                procurar = "Achou"
-                break
-
-            # Verificar se a imagem 2 foi encontrada
-            elif imagem2_pos is not None:
-                print("Imagem 2 encontrada! Clicando...")
-                pyautogui.click(imagem2_pos)
-                procurar = "Achou"
-                break
-
-            # Aguardar um curto período de tempo antes de verificar novamente
+        except Exception as e:
+            print(f"Erro ao tentar localizar img1: {e}")
             time.sleep(1)
 
-    except:
-        time.sleep(1)
-        print(f"Procurando {imagem1 or imagem2}...")
+        try:
+            img2 = pyautogui.locateCenterOnScreen(caminho_img2, confidence=0.7)
+            if img2:
+                x, y = img2
+                pyautogui.click(x, y)
+                return
+
+            time.sleep(0.5)
+
+        except Exception as e:
+            print(f"Erro ao tentar localizar img2: {e}")
+            time.sleep(1)
+
+    print("Não achou nenhuma das imagens após 5 segundos.")
