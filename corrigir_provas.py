@@ -4,6 +4,8 @@ import os
 import subprocess
 from util import *
 
+app = Application().start("C:\Program Files (x86)\Gravic\Remark Office OMR\RooU.exe")
+
 arquivos_questoes = {
     20: "Modelo20",
     25: "Modelo25",
@@ -19,8 +21,6 @@ def clica_no_gabarito():
     localiza_img_com_clique_duplo("img_remark/clica_pasta_gabarito")
 
 
-nome_da_pasta_antiga = []
-
 for turno in turnos:
     diretorio = f"C:/Users/douglas.lopes/Documents/Provas_para_lancamentos/Digitalizadas/{turno}"
 
@@ -33,18 +33,18 @@ for turno in turnos:
 
     # Itere sobre as pastas
     for pasta in pastas:
-        app = Application().start(
-            "C:\Program Files (x86)\Gravic\Remark Office OMR\RooU.exe"
-        )
-
         n_questoes_da_pasta = int(pasta[0:2])
 
         print(f"Secionando a pasta: {pasta}")
+
+        time.sleep(1)
         # Clicar em pasta
         localiza_img_com_clique("img_remark/clicar_em_pasta")
 
+        time.sleep(0.5)
         print(f"Selecionando o modelo: {n_questoes_da_pasta}")
         # Pesquisa modelo correspondente
+
         localiza_img_com_clique("img_remark/pesquisa_modelo")
         pyautogui.write(f"{arquivos_questoes[n_questoes_da_pasta]}")
         time.sleep(1)
@@ -89,21 +89,9 @@ for turno in turnos:
 
         nome_da_pasta_antiga.append(pasta)
 
-        print(nome_da_pasta_antiga)
+        altera_nome_da_pasta(turno, pasta, True)
 
-        diretorio_base = (
-            "C:/Users/douglas.lopes/Documents/Provas_para_lancamentos/Digitalizadas"
-        )
-
-        novo_nome = "Selecione essa"
-
-        # Construa o caminho completo do diretório atual e do novo diretório
-        diretorio_atual = os.path.join(diretorio_base, turno, pasta)
-        diretorio_novo = os.path.join(diretorio_base, turno, novo_nome)
-
-        # Renomeie a pasta
-        os.rename(diretorio_atual, diretorio_novo)
-
+        print(pasta)
         if turno == turnos[0]:
             print(f"Clicar em: {turno}")
             localiza_img_com_clique_duplo("img_remark/clicar_em_madrugada")
@@ -122,8 +110,11 @@ for turno in turnos:
 
         localiza_img_com_clique("img_remark/clicar_ler_gabaritos")
 
-        time.sleep(3)
-        localiza_img_com_clique("img_remark/clicar_em_avaliacao_avancada")
+        time.sleep(4)
+
+        localiza_img_com_clique_com_mais_precisao(
+            "img_remark/clicar_em_avaliacao_avancada"
+        )
 
         localiza_img_com_clique("img_remark/clicar_gabarito_de_resposta")
 
@@ -171,7 +162,16 @@ for turno in turnos:
 
         localiza_img_com_clique("img_remark/clicar_em_carregar")
 
-        localiza_img_com_clique_duplo("img_remark/sel_arq_id_e_nota")
+        if n_questoes_da_pasta == 20:
+            localiza_img_com_clique_duplo("img_remark/sel_arq_id_e_nota")
+        elif n_questoes_da_pasta == 25:
+            localiza_img_com_clique_duplo("img_remark/25_sel_arq_id_e_nota_25")
+        elif n_questoes_da_pasta == 30:
+            localiza_img_com_clique_duplo("img_remark/30_sel_arq_id_e_nota_30")
+        elif n_questoes_da_pasta == 35:
+            localiza_img_com_clique_duplo("img_remark/35_sel_arq_id_e_nota_35")
+        else:
+            print("Nenhum arquivo encontrado!")
 
         localiza_img_com_clique("img_remark/clicar_em_ok")
 
@@ -199,7 +199,7 @@ for turno in turnos:
 
         localiza_img_com_clique("img_remark/nao_salva_modelo")
 
-        localiza_img_com_clique("img_remark/fechar_remark")
+        maximizar_ou_minimizar(titulo_remark, False)
 
         arquivo_notas = rf"C:/Users/douglas.lopes/Documents/Provas_para_lancamentos/Corrigidas/{turno}/{arquivo_notas_txt}"
         subprocess.Popen(["start", "notepad.exe", arquivo_notas], shell=True)
@@ -208,7 +208,7 @@ for turno in turnos:
 
         pyautogui.hotkey("ctrl", "h")
 
-        time.sleep(0.5)
+        time.sleep(1)
 
         localiza_img_com_clique("notepad/substituir_tudo")
 
@@ -219,3 +219,12 @@ for turno in turnos:
         time.sleep(0.5)
 
         pyautogui.hotkey("ctrl", "w")
+
+        time.sleep(0.5)
+
+        maximizar_ou_minimizar(titulo_remark, True)
+
+        print(nome_da_pasta_antiga[0])
+        altera_nome_da_pasta(turno, pasta, False)
+
+        nome_da_pasta_antiga.pop(0)
