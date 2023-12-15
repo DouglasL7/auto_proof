@@ -57,6 +57,23 @@ def localiza_img_com_clique_duplo(img: str):
             print(f"Procurando {img}...")
 
 
+def localiza_img_com_clique_duplo_mais_precisao(img: str):
+    procurar = "sim"
+    caminho_img = f"img/{img}.png"
+
+    while procurar == "sim":
+        try:
+            pega_img = pyautogui.locateCenterOnScreen(caminho_img, confidence=0.9)
+            x, y = pega_img  # Desempacota as coordenadas
+            pyautogui.doubleClick(x, y)
+            procurar = "Achou"
+            print(f"Achou a imagem {img}!!!")
+
+        except:
+            time.sleep(1)
+            print(f"Procurando {img}...")
+
+
 def localiza_gabaritos(img: str):
     procurar = "sim"
 
@@ -86,7 +103,6 @@ def clicar_se_imagem_aparecer(imagem1, imagem2):
     tempo_limite = 10
 
     while time.time() - tempo_inicial < tempo_limite:
-        print(tempo_inicial)
         try:
             img1 = pyautogui.locateCenterOnScreen(caminho_img1, confidence=0.9)
             if img1:
@@ -174,3 +190,10 @@ def maximizar_ou_minimizar(janela: str, mm: bool):
         maximizar_janela(titulo)
     else:
         minimizar_janela(titulo)
+
+
+"""
+formulas criação
+
+cria log quando criar cadastro
+"""

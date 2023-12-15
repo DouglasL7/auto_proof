@@ -110,7 +110,7 @@ for turno in turnos:
 
         localiza_img_com_clique("img_remark/clicar_ler_gabaritos")
 
-        time.sleep(4)
+        time.sleep(3)
 
         localiza_img_com_clique_com_mais_precisao(
             "img_remark/clicar_em_avaliacao_avancada"
@@ -163,13 +163,13 @@ for turno in turnos:
         localiza_img_com_clique("img_remark/clicar_em_carregar")
 
         if n_questoes_da_pasta == 20:
-            localiza_img_com_clique_duplo("img_remark/sel_arq_id_e_nota")
+            localiza_img_com_clique_duplo_mais_precisao("img_remark/A20")
         elif n_questoes_da_pasta == 25:
-            localiza_img_com_clique_duplo("img_remark/25_sel_arq_id_e_nota_25")
+            localiza_img_com_clique_duplo_mais_precisao("img_remark/B25")
         elif n_questoes_da_pasta == 30:
-            localiza_img_com_clique_duplo("img_remark/30_sel_arq_id_e_nota_30")
+            localiza_img_com_clique_duplo_mais_precisao("img_remark/C30")
         elif n_questoes_da_pasta == 35:
-            localiza_img_com_clique_duplo("img_remark/35_sel_arq_id_e_nota_35")
+            localiza_img_com_clique_duplo_mais_precisao("img_remark/D35")
         else:
             print("Nenhum arquivo encontrado!")
 
