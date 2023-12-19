@@ -74,6 +74,22 @@ def localiza_img_com_clique_duplo_mais_precisao(img: str):
             print(f"Procurando {img}...")
 
 
+def move_mouse(img: str):
+    procurar = "sim"
+    caminho_img = f"img/{img}.png"
+
+    while procurar == "sim":
+        try:
+            pega_img = pyautogui.locateCenterOnScreen(caminho_img, confidence=0.8)
+            x, y = pega_img
+            pyautogui.moveTo(x, y)
+            procurar = "Achou"
+            print(f"Achou a imagem {img}")
+        except:
+            time.sleep(1)
+            print(f"Procurando {img}...")
+
+
 def localiza_gabaritos(img: str):
     procurar = "sim"
 
@@ -165,6 +181,8 @@ SW_SHOWMAXIMIZED = 3
 GW_HWNDNEXT = 2
 
 titulo_remark = "Central de dados do Remark Office OMR"
+
+titulo_navegador = "Caixa de Trabalho - DOUGLAS.LOPES"
 
 
 def encontrar_janela(titulo):
