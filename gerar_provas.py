@@ -37,7 +37,6 @@ arquivos_questoes = {
 }
 
 
-# Caminho para a imagem que você deseja verificar
 caminho_imagem = "img/word_clicar_ok_aviso.png"
 
 
@@ -133,7 +132,6 @@ with open("cod_prova.txt", "r") as cod_prova:
 
         print(f"Código da prova: {codigo_prova_questoes}, Questões: {prova_questoes}")
         # Verifica se a quantidade de questões está no dicionário
-        # Adiciona prints para verificar os valores
         print(f"Código da prova no arquivo: {codigo_prova}")
         print(f"Código da prova no gabarito: {codigo_prova_questoes}")
         print(f"Questões no gabarito: {prova_questoes}")
@@ -193,12 +191,6 @@ with open("cod_prova.txt", "r") as cod_prova:
         # Clica no aviso
         # Caminho para a imagem que você deseja verificar
         caminho_imagem = "img/word/clicar_ok_aviso.png"
-
-        # Verifica se a imagem está na tela e pressiona "enter" se encontrada
-        # if pyautogui.locateOnScreen(caminho_imagem):
-        #     pyautogui.press("enter")
-        # else:
-        #     print("A imagem não foi encontrada")
 
         time.sleep(1)
 

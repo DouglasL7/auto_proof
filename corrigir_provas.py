@@ -222,9 +222,46 @@ for turno in turnos:
 
         time.sleep(0.5)
 
-        maximizar_ou_minimizar(titulo_remark, True)
+        # Abre o navegador
+        maximizar_ou_minimizar(titulo_navegador, True)
+
+        localiza_img_com_clique("browser/clicar_em_af")
+
+        time.sleep(1)
+
+        localiza_img_com_clique_com_mais_precisao("browser/clicar_em_ai")
+
+        localiza_img_com_clique("browser/clicar_selecionar_arquivo")
+
+        localiza_img_com_clique_com_mais_precisao("browser/pesquisar_arquivo_prova")
+        pyautogui.write(
+            rf"C:/Users/douglas.lopes/Documents/Provas_para_lancamentos/Corrigidas/{turno}"
+        )
+
+        time.sleep(1)
+
+        pyautogui.press("enter")
+
+        localiza_img_com_clique_com_mais_precisao(
+            "browser/pesquisa_arquivo_txt_na_pagina"
+        )
+
+        pyautogui.write(arquivo_notas_txt)
+
+        time.sleep(0.5)
+
+        pyautogui.press("down")
+
+        time.sleep(0.5)
+
+        pyautogui.press("enter")
+
+        localiza_img_com_clique("browser/clicar_em_processar")
 
         print(nome_da_pasta_antiga[0])
+
         altera_nome_da_pasta(turno, pasta, False)
 
         nome_da_pasta_antiga.pop(0)
+
+        maximizar_ou_minimizar(titulo_remark, True)
