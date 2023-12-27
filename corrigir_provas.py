@@ -256,12 +256,24 @@ for turno in turnos:
 
         pyautogui.press("enter")
 
+        time.sleep(0.5)
+
         localiza_img_com_clique("browser/clicar_em_processar")
+
+        time.sleep(2)
+
+        localiza_img_com_clique("browser/clicar_em_ok")
 
         print(nome_da_pasta_antiga[0])
 
         altera_nome_da_pasta(turno, pasta, False)
 
         nome_da_pasta_antiga.pop(0)
+
+        time.sleep(1.5)
+
+        maximizar_ou_minimizar(titulo_navegador, False)
+
+        time.sleep(1.5)
 
         maximizar_ou_minimizar(titulo_remark, True)

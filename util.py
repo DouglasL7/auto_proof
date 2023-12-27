@@ -182,9 +182,7 @@ GW_HWNDNEXT = 2
 
 titulo_remark = "Central de dados do Remark Office OMR"
 
-titulo_navegador = (
-    "Leitura de Arquivo de Provas - Seleção - DOUGLAS.LOPES - Google Chrome"
-)
+titulo_navegador = "Leitura Arquivo de Provas - Seleção - DOUGLAS.LOPES - Google Chrome"
 
 
 def encontrar_janela(titulo):
