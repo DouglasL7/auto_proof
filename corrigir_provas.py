@@ -4,7 +4,7 @@ import os
 import subprocess
 from util import *
 
-app = Application().start("C:\Program Files (x86)\Gravic\Remark Office OMR\RooU.exe")
+# app = Application().start("C:\Program Files (x86)\Gravic\Remark Office OMR\RooU.exe")
 
 arquivos_questoes = {
     20: "Modelo20",
@@ -14,7 +14,7 @@ arquivos_questoes = {
     40: "Modelo40",
 }
 
-turnos = ["Madrugada", "Matutino", "Vespertino"]
+turnos = ["Madrugada", "Matutino", "Vespertino", "Noturno"]
 
 
 def clica_no_gabarito():
@@ -24,14 +24,19 @@ def clica_no_gabarito():
 for turno in turnos:
     diretorio = f"C:/Users/douglas.lopes/Documents/Provas_para_lancamentos/Digitalizadas/{turno}"
 
-    # Obtenha a lista de pastas no diretório
+    # Cria lista de pastas no diretório
     pastas = [
         nome
         for nome in os.listdir(diretorio)
         if os.path.isdir(os.path.join(diretorio, nome))
     ]
 
-    # Itere sobre as pastas
+    def qtd_de_pastas():
+        if turno == turnos[3] and len(pastas) > 28:
+            time.sleep(0.5)
+            pyautogui.press("right", presses=6)
+
+    # Itera sobre as pastas
     for pasta in pastas:
         n_questoes_da_pasta = int(pasta[0:2])
 
@@ -104,6 +109,11 @@ for turno in turnos:
             print(f"Clicar em: {turno}")
             localiza_img_com_clique_duplo("img_remark/clicar_em_vespertino")
 
+        elif turno == turnos[3]:
+            print(f"Clicar em: {turno}")
+            localiza_img_com_clique_duplo("img_remark/clicar_em_noturno")
+            qtd_de_pastas()
+
         clica_no_gabarito()
 
         localiza_img_com_clique("img_remark/clicar_adicionar_tudo")
@@ -135,14 +145,6 @@ for turno in turnos:
 
         localiza_img_com_clique("img_remark/clicar_em_exportar_dados")
 
-        localiza_img_com_clique("img_remark/clicar_nome_do_arquivo")
-        time.sleep(0.5)
-
-        # Coloca o código da prova como nome
-
-        arquivo_notas_txt = f"OK - {nome_da_pasta_antiga[0]}"
-        pyautogui.write(arquivo_notas_txt)
-
         localiza_img_com_clique("img_remark/clicar_seta_para_baixo")
 
         time.sleep(0.5)
@@ -160,6 +162,7 @@ for turno in turnos:
 
         localiza_img_com_clique("img_remark/desmarcar_todo")
 
+        time.sleep(0.5)
         localiza_img_com_clique("img_remark/clicar_em_carregar")
 
         if n_questoes_da_pasta == 20:
@@ -173,7 +176,7 @@ for turno in turnos:
         else:
             print("Nenhum arquivo encontrado!")
 
-        localiza_img_com_clique("img_remark/clicar_em_ok")
+        localiza_img_com_clique("img_remark/clicar_em_ok_segunda_op")
 
         if turno == turnos[0]:
             print(f"Clicar em: {turno}")
@@ -186,6 +189,24 @@ for turno in turnos:
         elif turno == turnos[2]:
             print(f"Clicar em: {turno}")
             localiza_img_com_clique_duplo("img_remark/clicar_em_vespertino")
+
+        elif turno == turnos[3]:
+            print(f"Clicar em: {turno}")
+            localiza_img_com_clique_duplo("img_remark/clicar_em_noturno")
+        else:
+            print("Nenhum arquivo encontrado!")
+
+        time.sleep(1)
+
+        localiza_img_com_clique("img_remark/clicar_nome_do_arquivo")
+        time.sleep(0.5)
+
+        # Coloca o código da prova como nome
+
+        arquivo_notas_txt = f"OK - {nome_da_pasta_antiga[0]}"
+        pyautogui.write(arquivo_notas_txt)
+
+        time.sleep(1.5)
 
         localiza_img_com_clique("img_remark/clicar_em_ok_para_salvar")
 
@@ -260,9 +281,11 @@ for turno in turnos:
 
         localiza_img_com_clique("browser/clicar_em_processar")
 
-        time.sleep(2)
+        time.sleep(4)
 
-        localiza_img_com_clique("browser/clicar_em_ok")
+        localiza_img_com_clique_duplo_mais_precisao("browser/clicar_em_ok")
+
+        time.sleep(1)
 
         print(nome_da_pasta_antiga[0])
 
