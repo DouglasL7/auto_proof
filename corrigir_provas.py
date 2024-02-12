@@ -21,282 +21,283 @@ def clica_no_gabarito():
     localiza_img_com_clique_duplo("img_remark/clica_pasta_gabarito")
 
 
-for turno in turnos:
-    diretorio = f"C:/Users/douglas.lopes/Documents/Provas_para_lancamentos/Digitalizadas/{turno}"
+def iniciar_correcao():
+    for turno in turnos:
+        diretorio = f"C:/Users/douglas.lopes/Documents/Provas_para_lancamentos/Digitalizadas/{turno}"
 
-    # Cria lista de pastas no diretório
-    pastas = [
-        nome
-        for nome in os.listdir(diretorio)
-        if os.path.isdir(os.path.join(diretorio, nome))
-    ]
+        # Cria lista de pastas no diretório
+        pastas = [
+            nome
+            for nome in os.listdir(diretorio)
+            if os.path.isdir(os.path.join(diretorio, nome))
+        ]
 
-    def qtd_de_pastas():
-        if turno == turnos[3] and len(pastas) > 28:
+        def qtd_de_pastas():
+            if turno == turnos[3] and len(pastas) > 28:
+                time.sleep(0.5)
+                pyautogui.press("right", presses=6)
+
+        # Itera sobre as pastas
+        for pasta in pastas:
+            n_questoes_da_pasta = int(pasta[0:2])
+
+            print(f"Secionando a pasta: {pasta}")
+
+            time.sleep(1)
+            # Clicar em pasta
+            localiza_img_com_clique("img_remark/clicar_em_pasta")
+
             time.sleep(0.5)
-            pyautogui.press("right", presses=6)
+            print(f"Selecionando o modelo: {n_questoes_da_pasta}")
+            # Pesquisa modelo correspondente
 
-    # Itera sobre as pastas
-    for pasta in pastas:
-        n_questoes_da_pasta = int(pasta[0:2])
+            localiza_img_com_clique("img_remark/pesquisa_modelo")
+            pyautogui.write(f"{arquivos_questoes[n_questoes_da_pasta]}")
+            time.sleep(1)
 
-        print(f"Secionando a pasta: {pasta}")
+            pyautogui.press("down")
+            time.sleep(0.5)
 
-        time.sleep(1)
-        # Clicar em pasta
-        localiza_img_com_clique("img_remark/clicar_em_pasta")
+            pyautogui.press("down")
+            time.sleep(0.5)
 
-        time.sleep(0.5)
-        print(f"Selecionando o modelo: {n_questoes_da_pasta}")
-        # Pesquisa modelo correspondente
+            pyautogui.press("up")
+            time.sleep(0.5)
 
-        localiza_img_com_clique("img_remark/pesquisa_modelo")
-        pyautogui.write(f"{arquivos_questoes[n_questoes_da_pasta]}")
-        time.sleep(1)
+            pyautogui.press("enter")
 
-        pyautogui.press("down")
-        time.sleep(0.5)
+            localiza_img_com_clique("img_remark/clicar_em_ler")
 
-        pyautogui.press("down")
-        time.sleep(0.5)
+            time.sleep(2)
 
-        pyautogui.press("up")
-        time.sleep(0.5)
+            clicar_se_imagem_aparecer(
+                "img_remark/clicar_em_ler_img_azul", "img_remark/clicar_em_ler_img"
+            )
 
-        pyautogui.press("enter")
+            clicar_se_imagem_aparecer(
+                "img_remark/clicar_em_proximo", "img_remark/clicar_em_proximo2"
+            )
 
-        localiza_img_com_clique("img_remark/clicar_em_ler")
+            localiza_img_com_clique("img_remark/clicar_seta_para_baixo")
 
-        time.sleep(2)
+            time.sleep(1)
 
-        clicar_se_imagem_aparecer(
-            "img_remark/clicar_em_ler_img_azul", "img_remark/clicar_em_ler_img"
-        )
+            localiza_img_com_clique("img_remark/clicar_em_documentos")
 
-        clicar_se_imagem_aparecer(
-            "img_remark/clicar_em_proximo", "img_remark/clicar_em_proximo2"
-        )
+            time.sleep(0.5)
+            localiza_img_com_clique_duplo("img_remark/clicar_na_pasta_de_provas")
 
-        localiza_img_com_clique("img_remark/clicar_seta_para_baixo")
+            time.sleep(0.5)
 
-        time.sleep(1)
+            localiza_img_com_clique_duplo("img_remark/clicar_digitalizadas")
 
-        localiza_img_com_clique("img_remark/clicar_em_documentos")
+            time.sleep(0.5)
 
-        time.sleep(0.5)
-        localiza_img_com_clique_duplo("img_remark/clicar_na_pasta_de_provas")
+            nome_da_pasta_antiga.append(pasta)
 
-        time.sleep(0.5)
+            altera_nome_da_pasta(turno, pasta, True)
 
-        localiza_img_com_clique_duplo("img_remark/clicar_digitalizadas")
+            print(pasta)
+            if turno == turnos[0]:
+                print(f"Clicar em: {turno}")
+                localiza_img_com_clique_duplo("img_remark/clicar_em_madrugada")
 
-        time.sleep(0.5)
+            elif turno == turnos[1]:
+                print(f"Clicar em: {turno}")
+                localiza_img_com_clique_duplo("img_remark/clicar_em_matutino")
 
-        nome_da_pasta_antiga.append(pasta)
+            elif turno == turnos[2]:
+                print(f"Clicar em: {turno}")
+                localiza_img_com_clique_duplo("img_remark/clicar_em_vespertino")
 
-        altera_nome_da_pasta(turno, pasta, True)
+            elif turno == turnos[3]:
+                print(f"Clicar em: {turno}")
+                localiza_img_com_clique_duplo("img_remark/clicar_em_noturno")
+                qtd_de_pastas()
 
-        print(pasta)
-        if turno == turnos[0]:
-            print(f"Clicar em: {turno}")
-            localiza_img_com_clique_duplo("img_remark/clicar_em_madrugada")
+            clica_no_gabarito()
 
-        elif turno == turnos[1]:
-            print(f"Clicar em: {turno}")
-            localiza_img_com_clique_duplo("img_remark/clicar_em_matutino")
+            localiza_img_com_clique("img_remark/clicar_adicionar_tudo")
 
-        elif turno == turnos[2]:
-            print(f"Clicar em: {turno}")
-            localiza_img_com_clique_duplo("img_remark/clicar_em_vespertino")
+            localiza_img_com_clique("img_remark/clicar_ler_gabaritos")
 
-        elif turno == turnos[3]:
-            print(f"Clicar em: {turno}")
-            localiza_img_com_clique_duplo("img_remark/clicar_em_noturno")
-            qtd_de_pastas()
+            time.sleep(3)
 
-        clica_no_gabarito()
+            localiza_img_com_clique_com_mais_precisao(
+                "img_remark/clicar_em_avaliacao_avancada"
+            )
 
-        localiza_img_com_clique("img_remark/clicar_adicionar_tudo")
+            localiza_img_com_clique("img_remark/clicar_gabarito_de_resposta")
 
-        localiza_img_com_clique("img_remark/clicar_ler_gabaritos")
+            localiza_img_com_clique("img_remark/importa_repostas")
 
-        time.sleep(3)
+            localiza_img_com_clique("img_remark/clicar_linha_de_conjunto")
 
-        localiza_img_com_clique_com_mais_precisao(
-            "img_remark/clicar_em_avaliacao_avancada"
-        )
+            localiza_img_com_clique("img_remark/clicar_em_importar_chave")
 
-        localiza_img_com_clique("img_remark/clicar_gabarito_de_resposta")
+            time.sleep(1)
+            localiza_img_com_clique("img_remark/clicar_em_avaliar")
 
-        localiza_img_com_clique("img_remark/importa_repostas")
+            localiza_img_com_clique("img_remark/nao_salva_gabarito")
 
-        localiza_img_com_clique("img_remark/clicar_linha_de_conjunto")
+            time.sleep(0.5)
 
-        localiza_img_com_clique("img_remark/clicar_em_importar_chave")
+            localiza_img_com_clique_com_mais_precisao("img_remark/clicar_em_dados")
 
-        time.sleep(1)
-        localiza_img_com_clique("img_remark/clicar_em_avaliar")
+            localiza_img_com_clique("img_remark/clicar_em_exportar_dados")
 
-        localiza_img_com_clique("img_remark/nao_salva_gabarito")
+            localiza_img_com_clique("img_remark/clicar_seta_para_baixo")
 
-        time.sleep(0.5)
+            time.sleep(0.5)
 
-        localiza_img_com_clique_com_mais_precisao("img_remark/clicar_em_dados")
+            localiza_img_com_clique("img_remark/clicar_em_documentos")
 
-        localiza_img_com_clique("img_remark/clicar_em_exportar_dados")
+            time.sleep(0.5)
 
-        localiza_img_com_clique("img_remark/clicar_seta_para_baixo")
+            localiza_img_com_clique_duplo("img_remark/clicar_na_pasta_de_provas")
 
-        time.sleep(0.5)
+            time.sleep(0.5)
+            localiza_img_com_clique_duplo("img_remark/clicar_em_corrigidas")
 
-        localiza_img_com_clique("img_remark/clicar_em_documentos")
+            localiza_img_com_clique("img_remark/clicar_em_avancado")
 
-        time.sleep(0.5)
+            localiza_img_com_clique("img_remark/desmarcar_todo")
 
-        localiza_img_com_clique_duplo("img_remark/clicar_na_pasta_de_provas")
+            time.sleep(0.5)
+            localiza_img_com_clique("img_remark/clicar_em_carregar")
 
-        time.sleep(0.5)
-        localiza_img_com_clique_duplo("img_remark/clicar_em_corrigidas")
+            if n_questoes_da_pasta == 20:
+                localiza_img_com_clique_duplo_mais_precisao("img_remark/A20")
+            elif n_questoes_da_pasta == 25:
+                localiza_img_com_clique_duplo_mais_precisao("img_remark/B25")
+            elif n_questoes_da_pasta == 30:
+                localiza_img_com_clique_duplo_mais_precisao("img_remark/C30")
+            elif n_questoes_da_pasta == 35:
+                localiza_img_com_clique_duplo_mais_precisao("img_remark/D35")
+            else:
+                print("Nenhum arquivo encontrado!")
 
-        localiza_img_com_clique("img_remark/clicar_em_avancado")
+            localiza_img_com_clique("img_remark/clicar_em_ok_segunda_op")
 
-        localiza_img_com_clique("img_remark/desmarcar_todo")
+            if turno == turnos[0]:
+                print(f"Clicar em: {turno}")
+                localiza_img_com_clique_duplo("img_remark/clicar_em_madrugada")
 
-        time.sleep(0.5)
-        localiza_img_com_clique("img_remark/clicar_em_carregar")
+            elif turno == turnos[1]:
+                print(f"Clicar em: {turno}")
+                localiza_img_com_clique_duplo("img_remark/clicar_em_matutino")
 
-        if n_questoes_da_pasta == 20:
-            localiza_img_com_clique_duplo_mais_precisao("img_remark/A20")
-        elif n_questoes_da_pasta == 25:
-            localiza_img_com_clique_duplo_mais_precisao("img_remark/B25")
-        elif n_questoes_da_pasta == 30:
-            localiza_img_com_clique_duplo_mais_precisao("img_remark/C30")
-        elif n_questoes_da_pasta == 35:
-            localiza_img_com_clique_duplo_mais_precisao("img_remark/D35")
-        else:
-            print("Nenhum arquivo encontrado!")
+            elif turno == turnos[2]:
+                print(f"Clicar em: {turno}")
+                localiza_img_com_clique_duplo("img_remark/clicar_em_vespertino")
 
-        localiza_img_com_clique("img_remark/clicar_em_ok_segunda_op")
+            elif turno == turnos[3]:
+                print(f"Clicar em: {turno}")
+                localiza_img_com_clique_duplo("img_remark/clicar_em_noturno")
+            else:
+                print("Nenhum arquivo encontrado!")
 
-        if turno == turnos[0]:
-            print(f"Clicar em: {turno}")
-            localiza_img_com_clique_duplo("img_remark/clicar_em_madrugada")
+            time.sleep(1)
 
-        elif turno == turnos[1]:
-            print(f"Clicar em: {turno}")
-            localiza_img_com_clique_duplo("img_remark/clicar_em_matutino")
+            localiza_img_com_clique("img_remark/clicar_nome_do_arquivo")
+            time.sleep(0.5)
 
-        elif turno == turnos[2]:
-            print(f"Clicar em: {turno}")
-            localiza_img_com_clique_duplo("img_remark/clicar_em_vespertino")
+            # Coloca o código da prova como nome
 
-        elif turno == turnos[3]:
-            print(f"Clicar em: {turno}")
-            localiza_img_com_clique_duplo("img_remark/clicar_em_noturno")
-        else:
-            print("Nenhum arquivo encontrado!")
+            arquivo_notas_txt = f"OK - {nome_da_pasta_antiga[0]}"
+            pyautogui.write(arquivo_notas_txt)
 
-        time.sleep(1)
+            time.sleep(1.5)
 
-        localiza_img_com_clique("img_remark/clicar_nome_do_arquivo")
-        time.sleep(0.5)
+            localiza_img_com_clique("img_remark/clicar_em_ok_para_salvar")
 
-        # Coloca o código da prova como nome
+            time.sleep(0.5)
 
-        arquivo_notas_txt = f"OK - {nome_da_pasta_antiga[0]}"
-        pyautogui.write(arquivo_notas_txt)
+            localiza_img_com_clique("img_remark/fechar_quick_starts")
 
-        time.sleep(1.5)
+            time.sleep(1)
 
-        localiza_img_com_clique("img_remark/clicar_em_ok_para_salvar")
+            localiza_img_com_clique_com_mais_precisao("img_remark/fechar_modelo")
 
-        time.sleep(0.5)
+            localiza_img_com_clique("img_remark/nao_salva_modelo")
 
-        localiza_img_com_clique("img_remark/fechar_quick_starts")
+            maximizar_ou_minimizar(titulo_remark, False)
 
-        time.sleep(1)
+            arquivo_notas = rf"C:/Users/douglas.lopes/Documents/Provas_para_lancamentos/Corrigidas/{turno}/{arquivo_notas_txt}"
+            subprocess.Popen(["start", "notepad.exe", arquivo_notas], shell=True)
 
-        localiza_img_com_clique_com_mais_precisao("img_remark/fechar_modelo")
+            time.sleep(2)
 
-        localiza_img_com_clique("img_remark/nao_salva_modelo")
+            pyautogui.hotkey("ctrl", "h")
 
-        maximizar_ou_minimizar(titulo_remark, False)
+            time.sleep(2)
 
-        arquivo_notas = rf"C:/Users/douglas.lopes/Documents/Provas_para_lancamentos/Corrigidas/{turno}/{arquivo_notas_txt}"
-        subprocess.Popen(["start", "notepad.exe", arquivo_notas], shell=True)
+            localiza_img_com_clique("notepad/substituir_tudo")
 
-        time.sleep(2)
+            time.sleep(0.5)
 
-        pyautogui.hotkey("ctrl", "h")
+            pyautogui.hotkey("ctrl", "s")
 
-        time.sleep(1)
+            time.sleep(0.5)
 
-        localiza_img_com_clique("notepad/substituir_tudo")
+            pyautogui.hotkey("ctrl", "w")
 
-        time.sleep(0.5)
+            time.sleep(0.5)
 
-        pyautogui.hotkey("ctrl", "s")
+            # Abre o navegador
+            maximizar_ou_minimizar(titulo_navegador, True)
 
-        time.sleep(0.5)
+            localiza_img_com_clique("browser/clicar_em_af")
 
-        pyautogui.hotkey("ctrl", "w")
+            time.sleep(1)
 
-        time.sleep(0.5)
+            localiza_img_com_clique_com_mais_precisao("browser/clicar_em_ai")
 
-        # Abre o navegador
-        maximizar_ou_minimizar(titulo_navegador, True)
+            localiza_img_com_clique("browser/clicar_selecionar_arquivo")
 
-        localiza_img_com_clique("browser/clicar_em_af")
+            localiza_img_com_clique_com_mais_precisao("browser/pesquisar_arquivo_prova")
+            pyautogui.write(
+                rf"C:/Users/douglas.lopes/Documents/Provas_para_lancamentos/Corrigidas/{turno}"
+            )
 
-        time.sleep(1)
+            time.sleep(1)
 
-        localiza_img_com_clique_com_mais_precisao("browser/clicar_em_ai")
+            pyautogui.press("enter")
 
-        localiza_img_com_clique("browser/clicar_selecionar_arquivo")
+            localiza_img_com_clique_com_mais_precisao(
+                "browser/pesquisa_arquivo_txt_na_pagina"
+            )
 
-        localiza_img_com_clique_com_mais_precisao("browser/pesquisar_arquivo_prova")
-        pyautogui.write(
-            rf"C:/Users/douglas.lopes/Documents/Provas_para_lancamentos/Corrigidas/{turno}"
-        )
+            pyautogui.write(arquivo_notas_txt)
 
-        time.sleep(1)
+            time.sleep(0.5)
 
-        pyautogui.press("enter")
+            pyautogui.press("down")
 
-        localiza_img_com_clique_com_mais_precisao(
-            "browser/pesquisa_arquivo_txt_na_pagina"
-        )
+            time.sleep(0.5)
 
-        pyautogui.write(arquivo_notas_txt)
+            pyautogui.press("enter")
 
-        time.sleep(0.5)
+            time.sleep(0.5)
 
-        pyautogui.press("down")
+            localiza_img_com_clique("browser/clicar_em_processar")
 
-        time.sleep(0.5)
+            time.sleep(4)
 
-        pyautogui.press("enter")
+            localiza_img_com_clique_duplo_mais_precisao("browser/clicar_em_ok")
 
-        time.sleep(0.5)
+            time.sleep(1)
 
-        localiza_img_com_clique("browser/clicar_em_processar")
+            print(nome_da_pasta_antiga[0])
 
-        time.sleep(4)
+            altera_nome_da_pasta(turno, pasta, False)
 
-        localiza_img_com_clique_duplo_mais_precisao("browser/clicar_em_ok")
+            nome_da_pasta_antiga.pop(0)
 
-        time.sleep(1)
+            time.sleep(1.5)
 
-        print(nome_da_pasta_antiga[0])
+            maximizar_ou_minimizar(titulo_navegador, False)
 
-        altera_nome_da_pasta(turno, pasta, False)
+            time.sleep(1.5)
 
-        nome_da_pasta_antiga.pop(0)
-
-        time.sleep(1.5)
-
-        maximizar_ou_minimizar(titulo_navegador, False)
-
-        time.sleep(1.5)
-
-        maximizar_ou_minimizar(titulo_remark, True)
+            maximizar_ou_minimizar(titulo_remark, True)

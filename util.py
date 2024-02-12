@@ -13,6 +13,8 @@ def localiza_img_com_clique(img: str):
         try:
             pega_img = pyautogui.locateCenterOnScreen(caminho_img, confidence=0.7)
             x, y = pega_img  # Desempacota as coordenadas
+            pyautogui.moveTo(x, y)
+            time.sleep(1)
             pyautogui.click(x, y)
             procurar = "Achou"
             print(f"Achou a imagem {img}!!!")
@@ -30,6 +32,7 @@ def localiza_img_com_clique_com_mais_precisao(img: str):
         try:
             pega_img = pyautogui.locateCenterOnScreen(caminho_img, confidence=0.9)
             x, y = pega_img  # Desempacota as coordenadas
+            pyautogui.moveTo(x, y)
             time.sleep(2)
             pyautogui.click(x, y)
             procurar = "Achou"
@@ -48,6 +51,8 @@ def localiza_img_com_clique_duplo(img: str):
         try:
             pega_img = pyautogui.locateCenterOnScreen(caminho_img, confidence=0.8)
             x, y = pega_img  # Desempacota as coordenadas
+            pyautogui.moveTo(x, y)
+            time.sleep(1)
             pyautogui.doubleClick(x, y)
             procurar = "Achou"
             print(f"Achou a imagem {img}!!!")
@@ -65,26 +70,12 @@ def localiza_img_com_clique_duplo_mais_precisao(img: str):
         try:
             pega_img = pyautogui.locateCenterOnScreen(caminho_img, confidence=0.9)
             x, y = pega_img  # Desempacota as coordenadas
+            pyautogui.moveTo(x, y)
+            time.sleep(1)
             pyautogui.doubleClick(x, y)
             procurar = "Achou"
             print(f"Achou a imagem {img}!!!")
 
-        except:
-            time.sleep(1)
-            print(f"Procurando {img}...")
-
-
-def move_mouse(img: str):
-    procurar = "sim"
-    caminho_img = f"img/{img}.png"
-
-    while procurar == "sim":
-        try:
-            pega_img = pyautogui.locateCenterOnScreen(caminho_img, confidence=0.8)
-            x, y = pega_img
-            pyautogui.moveTo(x, y)
-            procurar = "Achou"
-            print(f"Achou a imagem {img}")
         except:
             time.sleep(1)
             print(f"Procurando {img}...")
@@ -123,6 +114,8 @@ def clicar_se_imagem_aparecer(imagem1, imagem2):
             img1 = pyautogui.locateCenterOnScreen(caminho_img1, confidence=0.9)
             if img1:
                 x, y = img1
+                pyautogui.moveTo(x, y)
+                time.sleep(1)
                 pyautogui.click(x, y)
                 return
 
@@ -136,6 +129,8 @@ def clicar_se_imagem_aparecer(imagem1, imagem2):
             img2 = pyautogui.locateCenterOnScreen(caminho_img2, confidence=0.9)
             if img2:
                 x, y = img2
+                pyautogui.moveTo(x, y)
+                time.sleep(1)
                 pyautogui.click(x, y)
                 return
 
@@ -166,7 +161,7 @@ def altera_nome_da_pasta(turno, pasta, trocar: bool):
         os.rename(diretorio_atual, diretorio_novo)
     else:
         diretorio_atual = os.path.join(diretorio_digitalizadas, turno, novo_nome)
-        print(f"Atuallll:::::{diretorio_atual}")
+        print(f"Atual:{diretorio_atual}")
         diretorio_novo = os.path.join(
             diretorio_digitalizadas, turno, nome_da_pasta_antiga[0]
         )
@@ -208,10 +203,3 @@ def maximizar_ou_minimizar(janela: str, mm: bool):
         maximizar_janela(titulo)
     else:
         minimizar_janela(titulo)
-
-
-"""
-formulas criação
-
-cria log quando criar cadastro
-"""
